@@ -82,12 +82,12 @@ async def handle_order_webhook(payload: EcommerceWebhook):
     """
     process_id = os.urandom(4).hex()
     
-    print(f"\n--- [{process_id}] New Order Webhook Received ---")
-    print(f"[{process_id}] INFO: Processing order for contact: {payload.contactId}")
+    logger.info(f"--- [{process_id}] New Order Webhook Received ---")
+    logger.info(f"[{process_id}] Processing order for contact: {payload.contactId}")
     
     try:
         # Step 1: Fetch complete order details from e-commerce platform
-        print(f"[{process_id}] STEP 1: Fetching order details from e-commerce platform")
+        logger.info(f"[{process_id}] STEP 1: Fetching order details from e-commerce platform")
         ecommerce_order_data = get_ecommerce_order_details(payload.contactId)
         
         if not ecommerce_order_data:
@@ -96,10 +96,10 @@ async def handle_order_webhook(payload: EcommerceWebhook):
                 detail=f"Failed to fetch order details from e-commerce platform for contact {payload.contactId}"
             )
         
-        print(f"[{process_id}] SUCCESS: Retrieved order data for order ID: {ecommerce_order_data.get('orderId', 'N/A')}")
+        logger.info(f"[{process_id}] SUCCESS: Retrieved order data for order ID: {ecommerce_order_data.get('orderId', 'N/A')}")
         
         # Step 2: Transform e-commerce data to warehouse format
-        print(f"[{process_id}] STEP 2: Transforming order data for warehouse system")
+        logger.info(f"[{process_id}] STEP 2: Transforming order data for warehouse system")
         wms_payload_model = map_order_to_wms_payload(ecommerce_order_data, process_id)
         
         if not wms_payload_model:
@@ -108,14 +108,14 @@ async def handle_order_webhook(payload: EcommerceWebhook):
                 detail="Failed to transform order data for warehouse processing"
             )
             
-        print(f"[{process_id}] SUCCESS: Order transformed. WMS Order Number: {wms_payload_model.orderNumber}")
+        logger.info(f"[{process_id}] SUCCESS: Order transformed. WMS Order Number: {wms_payload_model.orderNumber}")
         
         # Step 3: Create order in warehouse management system
-        print(f"[{process_id}] STEP 3: Creating fulfillment order in warehouse")
+        logger.info(f"[{process_id}] STEP 3: Creating fulfillment order in warehouse")
         success = create_warehouse_order(wms_payload_model, process_id)
         
         if success:
-            print(f"--- [{process_id}] WORKFLOW COMPLETE: SUCCESS ---")
+            logger.info(f"--- [{process_id}] WORKFLOW COMPLETE: SUCCESS ---")
             return SuccessResponse(
                 message="Order processed and sent to warehouse successfully.",
                 wmsOrderNumber=wms_payload_model.orderNumber,
@@ -133,7 +133,7 @@ async def handle_order_webhook(payload: EcommerceWebhook):
     except Exception as e:
         # Handle unexpected errors
         error_msg = f"Unexpected error during order processing: {str(e)}"
-        print(f"[{process_id}] ERROR: {error_msg}")
+        logger.error(f"[{process_id}] {error_msg}")
         raise HTTPException(
             status_code=500,
             detail={
@@ -149,7 +149,7 @@ async def handle_order_update_webhook(payload: EcommerceWebhook):
     Handle order update notifications (cancellations, modifications, etc.)
     """
     process_id = os.urandom(4).hex()
-    print(f"[{process_id}] INFO: Order update webhook received for contact: {payload.contactId}")
+    logger.info(f"[{process_id}] Order update webhook received for contact: {payload.contactId}")
     
     # In a real implementation, this would handle order modifications
     # For demo purposes, we'll return a simple acknowledgment
