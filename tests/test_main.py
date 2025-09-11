@@ -34,7 +34,7 @@ def test_handle_order_webhook_ecommerce_fetch_fails(client: TestClient, monkeypa
     - Verifies the error message correctly identifies the point of failure.
     """
     # Arrange: Mock the service function to simulate a failure
-    monkeypatch.setattr(integration_service, "get_ecommerce_order_details", lambda contact_id: None)
+    monkeypatch.setattr("main.get_ecommerce_order_details", lambda contact_id: None)
     webhook_payload = {"contactId": "customer_failed_fetch"}
 
     # Act: Send the payload
@@ -62,9 +62,8 @@ def test_handle_order_webhook_no_items_in_order(client: TestClient, monkeypatch)
     }
     # Mock the service function to return this specific data
     monkeypatch.setattr(
-        integration_service, 
-        "get_ecommerce_order_details", 
-        lambda contact_id: mock_order_data_with_no_items
+    "main.get_ecommerce_order_details", 
+    lambda contact_id: mock_order_data_with_no_items
     )
     webhook_payload = {"contactId": "customer_no_items"}
 

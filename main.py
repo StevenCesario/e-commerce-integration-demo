@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 import uvicorn, os, logging
 
 # Import our service functions
@@ -29,13 +29,14 @@ class EcommerceWebhook(BaseModel):
     contactId: str
     orderId: str = None  # Optional fallback identifier
     
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra = {
             "example": {
                 "contactId": "contact_12345",
                 "orderId": "order_67890"
             }
         }
+    )
 
 class SuccessResponse(BaseModel):
     status: str = "success"
@@ -43,8 +44,8 @@ class SuccessResponse(BaseModel):
     wmsOrderNumber: str | None = None
     processId: str
     
-    class Config:
-        schema_extra = {
+    model_config = ConfigDict(
+        json_schema_extra = {
             "example": {
                 "status": "success",
                 "message": "Order processed and sent to warehouse successfully.",
@@ -52,6 +53,7 @@ class SuccessResponse(BaseModel):
                 "processId": "abc123def"
             }
         }
+    )
 
 class ErrorResponse(BaseModel):
     status: str = "error"
