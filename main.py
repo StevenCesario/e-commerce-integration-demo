@@ -1,15 +1,27 @@
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import JSONResponse
-import uvicorn
-import os
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import json
+import uvicorn, os, logging
 
 # Import our service functions
 from integration_service import (
     get_ecommerce_order_details,
     map_order_to_wms_payload,
     create_warehouse_order
+)
+
+# --- Basic Setup & Logging ---
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s"
+)
+logger = logging.getLogger(__name__)
+
+# --- App Initialization & Documentation ---
+app = FastAPI(
+    title="E-commerce to Warehouse Integration",
+    description="Automated webhook processor that receives e-commerce orders and creates fulfillment orders in warehouse management systems. Handles data transformation, validation, and error recovery.",
+    version="1.0.0",
+    docs_url="/",
 )
 
 # --- Pydantic Models ---
@@ -46,13 +58,6 @@ class ErrorResponse(BaseModel):
     message: str
     processId: str
     error_code: str
-
-app = FastAPI(
-    title="E-commerce to Warehouse Integration",
-    description="Automated webhook processor that receives e-commerce orders and creates fulfillment orders in warehouse management systems. Handles data transformation, validation, and error recovery.",
-    version="1.0.0",
-    docs_url="/",
-)
 
 @app.get("/health", tags=["Health"])
 async def health_check():
