@@ -401,6 +401,6 @@ MIT License - Use this code as inspiration for your own integration projects.
 
 ---
 
-**Built by Steven Lomon Lennartsson** 🌱
+**Built by Steven Cesario** 🌱
 
 *This repository demonstrates production-grade system integration architecture. The patterns and approaches shown here have been used to automate order processing for e-commerce businesses handling thousands of orders daily.*
