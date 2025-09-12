@@ -5,6 +5,7 @@ A production-ready webhook automation system that seamlessly connects e-commerce
 [![Python](https://img.shields.io/badge/Python-3.9+-brightgreen)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com)
 [![Pydantic](https://img.shields.io/badge/Pydantic-V2-blue)](https://pydantic.dev)
+[![CI/CD](https://github.com/stevencesario/e-commerce-integration-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/stevencesario/e-commerce-integration-demo/actions/workflows/ci.yml)
 
 ## 🎯 Business Problem Solved
 
