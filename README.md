@@ -31,10 +31,11 @@ This project proves I don't just build scripts; I build reliable data infrastruc
 ## 🏗️ System Architecture (Analogous to CAPI)
 
 This system's data flow is a direct parallel to a server-side CAPI implementation: receiving event data, transforming it, validating it, and securely forwarding it to an external API.
-
+```text
 E-commerce Platform → Webhook → Integration Service → Warehouse API
 ↓                       ↓                       ↓
 [Data Transformation]   [Validation & Mapping]  [Fulfillment Creation]
+```
 
 ---
 
