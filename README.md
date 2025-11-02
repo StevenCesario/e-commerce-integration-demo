@@ -1,144 +1,46 @@
-# 🚀 E-commerce to Warehouse Integration
-
-A production-ready webhook automation system that seamlessly connects e-commerce platforms with warehouse management systems. Transforms order data, handles validation, and automates fulfillment workflows - eliminating manual order processing entirely.
+# 🚀 Complex Webhook & Data Integration (FastAPI, Pydantic V2)
 
 [![Python](https://img.shields.io/badge/Python-3.9+-brightgreen)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com)
 [![Pydantic](https://img.shields.io/badge/Pydantic-V2-blue)](https://pydantic.dev)
 [![CI/CD](https://github.com/stevencesario/e-commerce-integration-demo/actions/workflows/ci.yml/badge.svg)](https://github.com/stevencesario/e-commerce-integration-demo/actions/workflows/ci.yml)
 
-## 🎯 Business Problem Solved
+> **Portfolio Context:** This repository serves as supporting **Proof of Work** for my core Meta CAPI architecture. It demonstrates my ability to handle complex, asynchronous, high-stakes webhook data from third-party platforms.
+>
+> This is the *exact* skill set required to process event data from e-commerce platforms (Shopify, Skool, funnels) and securely transform it for a server-side API, just as I do for the Meta Conversions API.
 
-Recently, a course business owner wanted to start selling his book but faced a critical integration gap. Ongoing WMS had ready-built integrations with WooCommerce and Shopify, but not GoHighLevel. Every purchase required manual data transfer from their CRM to the warehouse system - consuming hours of their team's time daily.
+---
 
-Within 72 hours, I built a complete custom integration that automated this entire workflow:
+## 🎯 Solved: A High-Pain Business Data Problem
 
-- **Manual Process**: 15+ hours weekly of data entry + human error risk
-- **Automated Process**: Instant, error-free order flow with full audit trail
+This system solved a critical integration gap for a business, eliminating **15+ hours of weekly manual data entry** and the high risk of human error.
 
-**Real Impact**: 15 hours of weekly manual work eliminated, allowing their company to focus on growth instead of data entry.
+* **Manual Process**: 15+ hours weekly of error-prone data entry.
+* **Automated Process**: Instant, error-free order flow with a full audit trail.
 
-*Note: This repository contains a generalized, showcase version of the production integration architecture used in the real project, designed to demonstrate the technical patterns and business value of automated order processing systems.*
+This project proves I don't just build scripts; I build reliable data infrastructure that solves expensive business problems.
 
-For any business processing orders between different platforms, this eliminates manual workflows and scales operations without additional staff.
+## ✨ Core Technical Competencies (Proof of Work)
 
-## ✨ Key Features
+* **Webhook-Driven Automation:** Production-ready API endpoint for receiving and processing high-stakes webhooks from third-party platforms.
+* **Enterprise-Grade Reliability:** Comprehensive data validation using **Pydantic V2** to define strict schemas for incoming and outgoing data.
+* **Data Transformation & Mapping:** The `integration_service.py` file shows the clear, maintainable logic for mapping complex, nested JSON from one format (E-commerce) to another (Warehouse).
+* **Real-World Complexity:** Demonstrates handling of real-world data problems like country code standardization, multi-currency validation, and address formatting.
+* **Fully Tested:** Includes a `pytest` suite that tests the "happy path" as well as failure scenarios like API downtime and data validation errors.
 
-🔄 **Complete Automation**
-- Webhook-driven order processing
-- Real-time data synchronization
-- Multi-step workflow orchestration
-- Automatic retry mechanisms
+## 🏗️ System Architecture (Analogous to CAPI)
 
-🛡️ **Enterprise-Grade Reliability**
-- Comprehensive data validation using Pydantic V2
-- Detailed error handling and logging
-- Request tracking with unique process IDs
-- Graceful failure recovery
+This system's data flow is a direct parallel to a server-side CAPI implementation: receiving event data, transforming it, validating it, and securely forwarding it to an external API.
 
-🌍 **International Commerce Ready**
-- Multi-currency support with validation
-- International address formatting
-- Country code standardization
-- Localized shipping preferences
-
-📊 **Production Monitoring**
-- Health check endpoints
-- Detailed process logging
-- Order status tracking API
-- Performance metrics collection
-
-## 🏗️ System Architecture
-
-```
 E-commerce Platform → Webhook → Integration Service → Warehouse API
-                                       ↓
-                               [Data Transformation]
-                                       ↓
-                               [Validation & Mapping]
-                                       ↓
-                               [Fulfillment Creation]
-```
+↓                       ↓                       ↓
+[Data Transformation]   [Validation & Mapping]  [Fulfillment Creation]
 
-### Data Flow
-1. **Webhook Reception**: Receives order notifications from e-commerce platform
-2. **Order Fetching**: Retrieves complete order details via API
-3. **Data Transformation**: Maps e-commerce format to warehouse format
-4. **Validation**: Ensures data integrity using Pydantic models
-5. **Fulfillment**: Creates order in warehouse management system
-6. **Confirmation**: Returns success status with tracking information
+---
 
-## 🚀 Quick Start
+## 🔧 Technical Proof: Data Transformation (PII & Event Data)
 
-### Prerequisites
-- Python 3.9+
-- FastAPI
-- Pydantic V2
-- Requests library
-
-### Installation
-```bash
-git clone https://github.com/yourusername/ecommerce-warehouse-integration.git
-cd ecommerce-warehouse-integration
-pip install -r requirements.txt
-```
-
-### Environment Setup
-```bash
-# Copy environment template
-cp .env.example .env
-
-# Configure your API credentials
-ECOMMERCE_API_TOKEN=your_ecommerce_token
-ECOMMERCE_LOCATION_ID=your_location_id
-WMS_USERNAME=your_warehouse_username
-WMS_PASSWORD=your_warehouse_password
-WMS_WAREHOUSE_ID=your_warehouse_id
-```
-
-### Run the Service
-```bash
-python main.py
-# or
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-### View Documentation
-Open `http://localhost:8000` to see the interactive API documentation.
-
-## 📋 API Examples
-
-### Process New Order
-```bash
-curl -X POST "http://localhost:8000/webhook/order-created" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "contactId": "customer_12345",
-    "orderId": "order_67890"
-  }'
-```
-
-### Response
-```json
-{
-  "status": "success",
-  "message": "Order processed and sent to warehouse successfully.",
-  "wmsOrderNumber": "ECOM-order_67890",
-  "processId": "abc123def"
-}
-```
-
-### Check Order Status
-```bash
-curl "http://localhost:8000/orders/order_67890/status"
-```
-
-### Health Check
-```bash
-curl "http://localhost:8000/health"
-```
-
-## 🔧 Data Transformation Example
+This is tangible proof of my ability to securely map critical PII and event data from one complex JSON structure to another.
 
 ### Input (E-commerce Format)
 ```json
@@ -160,7 +62,7 @@ curl "http://localhost:8000/health"
   "amount": 59.98,
   "currency": "USD"
 }
-```
+´´´
 
 ### Output (Warehouse Format)
 ```json
@@ -190,218 +92,4 @@ curl "http://localhost:8000/health"
     }
   ]
 }
-```
-
-## 🛡️ Data Validation
-
-The system uses Pydantic V2 for comprehensive data validation:
-
-- **Field Validation**: Type checking, range validation, required fields
-- **Business Logic**: Currency/value relationships, address completeness
-- **Cross-Field Validation**: Total price calculations, quantity checks
-- **Format Validation**: Country codes, phone numbers, email addresses
-
-## 📊 Error Handling
-
-### Comprehensive Error Coverage
-- **API Failures**: Timeout, authentication, rate limiting
-- **Data Issues**: Missing fields, invalid formats, business rule violations
-- **System Errors**: Network issues, service unavailability
-- **Validation Errors**: Schema mismatches, type errors
-
-### Error Response Example
-```json
-{
-  "status": "error",
-  "message": "Failed to fetch order details from e-commerce platform",
-  "processId": "abc123def",
-  "error_code": "ECOMMERCE_API_ERROR"
-}
-```
-
-## 🏭 Production Deployment
-
-### Docker Support
-```dockerfile
-FROM python:3.9-slim
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-### Environment Variables
-```bash
-# Required
-ECOMMERCE_API_TOKEN=your_token
-WMS_USERNAME=your_username
-WMS_PASSWORD=your_password
-
-# Optional (with defaults)
-ECOMMERCE_API_BASE_URL=https://api.ecommerce-platform.com
-WMS_API_BASE_URL=https://api.warehouse-system.com
-LOG_LEVEL=INFO
-```
-
-## 📈 Performance & Scalability
-
-- **Processing Speed**: < 2 seconds per order
-- **Throughput**: 500+ orders per minute
-- **Reliability**: 99.9% success rate with retry mechanisms
-- **Monitoring**: Built-in health checks and metrics
-
-## 🔄 Supported Integrations
-
-### E-commerce Platforms
-- Shopify, WooCommerce, Magento
-- Custom e-commerce solutions
-- Multi-vendor marketplaces
-- Subscription platforms
-
-### Warehouse Systems
-- ShipStation, ShipBob, Fulfillment by Amazon (FBA)
-- 3PL providers and custom WMS solutions
-- Inventory management systems
-- Drop-shipping networks
-
-## 💼 Real-World Impact
-
-This integration architecture has been battle-tested in production environments:
-
-### For E-commerce Businesses
-- **Time Savings**: Eliminate 8-15 hours of manual order processing daily
-- **Error Reduction**: 99.9% accuracy vs. 95% with manual processing
-- **Scalability**: Handle 10x order volume without additional staff
-- **Customer Satisfaction**: Faster fulfillment and fewer shipping errors
-
-### For Development Teams
-- **Reduced Complexity**: Pre-built validation and error handling
-- **Faster Implementation**: Days instead of weeks for integration
-- **Maintainable Code**: Clear separation of concerns and comprehensive logging
-- **Production Ready**: Built-in monitoring and health checks
-
-## 🧪 Testing
-
-### Run Tests
-```bash
-# Install test dependencies
-pip install pytest pytest-asyncio httpx
-
-# Run test suite
-pytest tests/ -v
-
-# Run with coverage
-pytest tests/ --cov=src --cov-report=html
-```
-
-### Test Coverage
-- Unit tests for data transformation logic
-- Integration tests for API endpoints
-- Validation tests for Pydantic models
-- Error handling scenario tests
-
-## 🔧 Configuration Options
-
-### Advanced Settings
-```python
-# Retry Configuration
-ECOMMERCE_API_RETRIES=3
-ECOMMERCE_API_DELAY=2
-
-# Webhook Security
-WEBHOOK_SECRET_KEY=your_webhook_secret
-WEBHOOK_TIMEOUT=30
-
-# Performance Tuning
-MAX_CONCURRENT_ORDERS=10
-DATABASE_POOL_SIZE=20
-CACHE_TTL=300
-```
-
-### Monitoring & Alerting
-```python
-# Health Check Configuration
-HEALTH_CHECK_INTERVAL=60
-ALERT_ON_FAILURE_COUNT=5
-NOTIFICATION_WEBHOOK=https://alerts.yourcompany.com
-
-# Logging Configuration
-LOG_FORMAT=json
-LOG_RETENTION_DAYS=30
-METRICS_ENABLED=true
-```
-
-## 🚀 Extending the System
-
-### Adding New E-commerce Platforms
-1. Create platform-specific data mapper
-2. Implement authentication method
-3. Add platform validation rules
-4. Update configuration
-
-### Custom Warehouse Integrations
-1. Define warehouse-specific models
-2. Implement API client
-3. Add transformation logic
-4. Configure endpoint mapping
-
-### Webhook Security
-```python
-import hmac
-import hashlib
-
-def verify_webhook_signature(payload, signature, secret):
-    expected = hmac.new(
-        secret.encode(),
-        payload.encode(),
-        hashlib.sha256
-    ).hexdigest()
-    return hmac.compare_digest(signature, expected)
-```
-
-## 📚 Documentation
-
-### API Documentation
-- Interactive docs at `/` when running
-- OpenAPI/Swagger specification
-- Request/response examples
-- Error code reference
-
-### Architecture Docs
-- System design diagrams
-- Data flow documentation
-- Integration patterns
-- Deployment guides
-
-## 🤝 Contributing
-
-This is a demonstration repository showcasing production-quality integration architecture. Key design principles:
-
-- **Separation of Concerns**: Clear boundaries between webhook handling, data transformation, and external API calls
-- **Comprehensive Validation**: Pydantic models ensure data integrity at every step
-- **Error Resilience**: Graceful handling of failures with detailed logging
-- **Scalable Design**: Async-ready architecture for high-throughput scenarios
-
-## 📄 License
-
-MIT License - Use this code as inspiration for your own integration projects.
-
-## 🌟 Technical Highlights
-
-### Code Quality Features
-- **Type Safety**: Full type hints and Pydantic validation
-- **Error Handling**: Comprehensive exception management
-- **Logging**: Structured logging with correlation IDs
-- **Documentation**: Self-documenting code with clear examples
-
-### Architecture Patterns
-- **Clean Architecture**: Domain logic separated from infrastructure
-- **Event-Driven**: Webhook-based reactive processing
-- **API Gateway**: Centralized request handling and routing
-- **Data Pipeline**: Multi-stage transformation with validation
-
----
-
-**Built by Steven Cesario** 🌱
-
-*This repository demonstrates production-grade system integration architecture. The patterns and approaches shown here have been used to automate order processing for e-commerce businesses handling thousands of orders daily.*
+´´´
