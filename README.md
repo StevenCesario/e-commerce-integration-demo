@@ -62,7 +62,7 @@ This is tangible proof of my ability to securely map critical PII and event data
   "amount": 59.98,
   "currency": "USD"
 }
-´´´
+```
 
 ### Output (Warehouse Format)
 ```json
@@ -92,4 +92,4 @@ This is tangible proof of my ability to securely map critical PII and event data
     }
   ]
 }
-´´´
+```
